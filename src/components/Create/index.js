@@ -7,14 +7,19 @@ const {
 	View,
 	Text,
 	StyleSheet,
-	TouchableHighlight
+	TouchableHighlight,
+	TextInput
 } = React;
 
 class Home extends React.Component{
 	render(){
 		return(
 			<View>
-				<Text style={styles.text}>Create View</Text>
+				<Text>Location</Text>
+				<TextInput
+					style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+					value={"Wow"}
+				/>
 			</View>
 		)
 	}

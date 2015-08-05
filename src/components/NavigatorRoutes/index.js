@@ -10,6 +10,13 @@ const Home = require('./../Home');
 
 class NavigatorRoutes extends React.Component{
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        commuting: false
+      }
+    }
+
     renderScene(route, navigator) {
         let Component = route.component;
         let navBar = route.navigationBar;
@@ -43,10 +50,13 @@ class NavigatorRoutes extends React.Component{
             initialRoute={{
               navigationBar: (
                 <NavigationBar 
-                    title="My Commute Times"
-                    nextTitle="Settings"
+                    title="Commute Length"
+                    titleColor={'white'}
+                    nextTitle={"More"}
+                    backgroundColor={"#4F81F1"}
                     onNext={(navigator) => this.navigator.pop()}
                     style={styles.navigator}
+                    statusBar={'lightContent'}
                 />
               ),
               component: Home,
@@ -59,6 +69,9 @@ class NavigatorRoutes extends React.Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1
+  },
+  navigator: {
+    borderBottomColor: '#4F81F1',
   }
 });
 

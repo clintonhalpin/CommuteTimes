@@ -1,30 +1,40 @@
 const React = require('react-native');
 const NavigationBar = require('react-native-navbar');
 const Create = require('./../Create');
+const Timer = require('./../Timer');
+const List = require('./../List');
 
 const {
 	Navigator,
 	View,
 	Text,
 	StyleSheet,
-	TouchableHighlight
+	TouchableHighlight,
+  ListView
 } = React;
 
 class Home extends React.Component{
-	openModal(){
-		this.props.navigator.push({
-			sceneConfig: Navigator.SceneConfigs.FloatFromBottom,
-		    navigationBar: <NavigationBar title="Create New" nextTitle="Save" prevTitle="Cancel" />,
-		    component: Create
-		})
+  constructor(props){
+    super(props);
+    this.state = {
+      commuting: false,
+      recordedCommutes: ['1','2','3']
+    }
+  }
+	startTimer(){
+		this.setState({
+      commuting: !this.state.commuting,
+      recordedCommutes: this.state.recordedCommutes.push(4)
+    })
 	}
 	render(){
 		return(
 			<View style={styles.container}>
-				<Text style={styles.text}>Main Graphic + List View</Text>
-				<View>
-					<TouchableHighlight style={styles.button} onPress={this.openModal.bind(this)}><Text style={styles.createButtonText}>Create</Text></TouchableHighlight>
-				</View>
+				<Timer commuting={this.state.commuting} />
+        <List style={styles.listView} recordedCommutes={this.state.recordedCommutes} />
+        <View style={styles.buttonContainer}>
+          <TouchableHighlight style={styles.button} onPress={this.startTimer.bind(this)}><Text style={styles.createButtonText}>+</Text></TouchableHighlight>
+        </View>
 			</View>
 		)
 	}
@@ -33,30 +43,37 @@ class Home extends React.Component{
 const styles = StyleSheet.create({
   
   container: {
+  	flex: 2,
+    padding: 0,
+    backgroundColor: '#CCC'
+  },
+
+  listView: {
+    height: 100,
+    backgroundColor: 'yellow',
+    alignItems: 'stretch'
+  },
+  
+  buttonContainer: {
   	flex: 1,
-    padding: 16
-  },
-  
-  text: {
-  	textAlign: 'center',
-  	padding: 20,
-  	fontSize: 18
-  },
-  
-  createButtonText: {
-  	padding: 8,
-  	color: 'white',
-  	fontSize: 16,
-  	textAlign: 'center',
   },
 
   button: {
-    backgroundColor: "#4585F1",
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    padding: 16,
+    paddingTop: 2,
+    paddingBottom: 8,
     margin: 10,
-    borderRadius: 6,
-    bottom: 10,
-    right: 0,
-    left: 0
+    borderRadius: 25,
+    backgroundColor: "#4585F1",
+  },
+
+  createButtonText: {
+    color: 'white',
+    fontSize: 36,
+    textAlign: 'center'
   },
 
 });
